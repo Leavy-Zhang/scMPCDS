@@ -1,0 +1,27 @@
+# Executable
+bwa==0.7.17
+fastp==0.23.2
+samtools==1.21
+pTrimmer==1.3.1
+SnpEFF==4.5
+bcftools==1.21
+python==3.12.7
+R==4.3.3
+
+
+# R library
+dplyr==1.1.4
+ggbeeswarm==0.7.2
+ggplot2==3.4.4
+ggpubr==0.6.0
+ggrepel==0.9.4
+ggridges==0.5.4
+
+# python module
+numpy==2.0.2
+pandas==2.2.3
+scikit-learn==1.6.0
+scipy==1.14.1
+matplotlib==3.9.3
+seaborn==0.13.2
+SigProfilerMatrixGenerator==1.3.6
