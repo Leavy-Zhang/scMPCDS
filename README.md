@@ -36,7 +36,14 @@ The whole sequencing data is available  at https://ngdc.cncb.ac.cn/ with accessi
 			conda-forge::matplotlib==3.9.3 \
 			conda-forge::seaborn==0.13.2 \
 			bioconda::sigprofilermatrixgenerator==1.3.6
-	# 3) Activate environment: `conda activate scMPCDS`
+			
+	# 3) 
 
 ## Major Steps
-To obtain vcf files with high quality for each cell. 
+
+To activate environment: 
+		conda activate scMPCDS
+
+To obtain vcf files with high quality for each cell. Run seq2vcf/mapping2vcf.sh at the directory containing raw fastq files:
+
+	  
