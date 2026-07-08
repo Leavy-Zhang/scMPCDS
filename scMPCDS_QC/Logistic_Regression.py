@@ -66,16 +66,16 @@ def load_data(file_path=None, nonzero_frac = 0.01):
         n_snps = 100
         n_causal_snps = 10
         df = simulate_snp_allele_fraction(n_samples, n_snps, n_causal_snps)
-        print(f"生成了 {n_samples} 个样本，{n_snps} 个SNP位点的突变比例数据")
+        print(f"generated {n_samples} samples, ratios of of {n_snps} SNP sites")
         df.to_csv('snp_allele_fraction_matrix.csv', index=False)
-        print("SNP突变频率矩阵已保存到 snp_allele_fraction_matrix.csv")
+        print("mutation frequency matrix of SNP is saved as snp_allele_fraction_matrix.csv")
     
     return df
 
 
 def preprocess_data(df):
     """
-    数据预处理
+    data preprocessing
     """
     
     X = df.iloc[:,:-1]
@@ -87,7 +87,7 @@ def preprocess_data(df):
 def select_features(X, y, method='chi2', k=20):
     """
     selected key features
-    method: 'chi2' 或 'rfe'
+    method: 'chi2' or 'rfe'
     k: number of features returned
     """
     if method == 'chi2':
@@ -129,7 +129,7 @@ def build_logistic_regression(X, y, prefix = "NA"):
     
     
     best_model = grid_search.best_estimator_
-    print(f"最佳超参数: {grid_search.best_params_}")
+    print(f"optimal super parameter: {grid_search.best_params_}")
     
     
     y_pred = best_model.predict(X_test_scaled)
@@ -139,10 +139,10 @@ def build_logistic_regression(X, y, prefix = "NA"):
     accuracy = accuracy_score(y_test, y_pred)
     auc = roc_auc_score(y_test, y_pred_proba)
     
-    print("模型评估结果:")
-    print(f"准确率: {accuracy:.4f}")
+    print("Model estimation result:")
+    print(f"Accuracy: {accuracy:.4f}")
     print(f"AUC: {auc:.4f}")
-    print("分类报告:")
+    print("Classification report:")
     print(classification_report(y_test, y_pred))
     a = classification_report(y_test, y_pred, output_dict=True)
     a = pd.DataFrame(a).transpose()
@@ -152,7 +152,7 @@ def build_logistic_regression(X, y, prefix = "NA"):
 
 def identify_key_snps(model, features):
     """
-    基于模型系数筛选关键SNP
+    Key SNP screening using model coefficients
     """
     coefficients = model.coef_[0]
     snp_importance = pd.DataFrame({
@@ -169,15 +169,15 @@ def identify_key_snps(model, features):
 
 def optimize_model(X, y, key_snps, top_n=10):
     """
-    使用关键SNP优化模型
-    top_n: 选择前n个关键SNP
+    Model Optimization using screened key SNPs
+    top_n: number of top key SNP
     """
     
     top_snps = key_snps['SNP'].head(top_n).tolist()
     X_top = X[top_snps]
     
     
-    print(f"使用前 {top_n} 个关键SNP重新构建模型...")
+    print(f"using top {top_n} SNPs to rebuld models...")
     optimized_model, accuracy, auc = build_logistic_regression(X_top, y)
     
     return optimized_model, accuracy, auc, top_snps
@@ -191,33 +191,33 @@ def main():
 
 
     df.to_csv("path/to/"+ prefix+ '.filtered.csv', index=False)
-    print("SNP突变频率矩阵已保存到 snp_allele_fraction_matrix.csv")
+    print("Mutation fraction matrix is saved as snp_allele_fraction_matrix.csv")
 
 
-    print("数据预处理...")
+    print("Data preprocessing...")
     X, y = preprocess_data(df)
 
 
-    print("进行特征选择...")
+    print("key feature selection...")
     X_selected, selected_features = select_features(X, y, method='chi2', k=20)
-    print(f"选择了 {len(selected_features)} 个重要SNP特征")
+    print(f"{len(selected_features)} key SNP features are selected")
 
 
-    print("构建逻辑回归模型...")
+    print("Build logistic regression model...")
     model, accuracy, auc = build_logistic_regression(X_selected, y)
 
 
-    print("筛选关键SNP...")
+    print("Screeing key SNP...")
     key_snps = identify_key_snps(model, selected_features)
-    print("前10个关键SNP:")
+    print("Information of top 10 key SNP:")
     print(key_snps.head(10))
 
 
     key_snps.to_csv("path/to/"+ prefix + '.key_snps_from_allele_fraction.csv', index=False)
-    print("关键SNP已保存到 key_snps_from_allele_fraction.csv")
+    print("Screened key SNP is saved as key_snps_from_allele_fraction.csv")
 
 
-    print("优化模型...")
+    print("Optimizing model...")
     optimized_model, opt_accuracy, opt_auc, top_snps = optimize_model(X, y, key_snps, top_n=10)
 
 
@@ -227,7 +227,7 @@ def main():
     plt.title('Top 20 Key SNPs by Coefficient')
     plt.tight_layout()
     plt.savefig("path/to/"+ prefix + '.key_snps_allele_fraction_plot.pdf')
-    print("关键SNP可视化已保存到 key_snps_allele_fraction_plot.pdf")
+    print("Visualization of key SNP is save as key_snps_allele_fraction_plot.pdf")
     
     fusion_mat = pd.read_csv("path/to/" + prefix+".fusion_matrix.csv", header=0,index_col=0)
     tmp = fusion_mat.iloc[:2,:3]
