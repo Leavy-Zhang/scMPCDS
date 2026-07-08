@@ -7,9 +7,8 @@ fasta_file="Homo_Ref_Numts.fa"
 bwa index -a bwtsw "$ref_base/$fasta_file"
 
 mkdir vcf_file 
-cd sample_dir
 mkdir clean_data
-for i in `ls  `; do
+for i in `ls 01.RawData `; do
     fastp -i 01.RawData/"$i"/"$i"_1.fq.gz \
         -I 01.RawData/"$i"/"$i"_2.fq.gz \
         -o clean_data/"$i"/"$i".R1.clean.fastq.gz \
@@ -34,11 +33,6 @@ for i in `ls  `; do
         varscan mpileup2snp --output-vcf 1 --min-var-freq 0.01 --strand-filter 0 --min-coverage 5 > ../"$vcf_file"/"$i".vcf"
 done
 
-cd ../vcf_file
-for i in `ls | grep vcf$`;do
-    java -Xmx100G -jar ~/tools/snpEff/snpEff.jar -c ~/tools/snpEff/snpEff.config -noupstream -nodownstream -v -o gatk GRCh38.99 "$" > "${i%vcf}anno.vcf.gz";tabix -p vcf "$i"/"${j%vcf}anno.vcf"
+for i in `ls "$vcf_file" | grep vcf$`;do
+    java -Xmx100G -jar ~/tools/snpEff/snpEff.jar -c ~/tools/snpEff/snpEff.config -noupstream -nodownstream -v -o gatk GRCh38.99 "$vcf_file"/"$i" > "$vcf_file"/"${i%vcf}anno.vcf.gz";tabix -p vcf "$i"/"${j%vcf}anno.vcf"
 done
-
-
-
-
