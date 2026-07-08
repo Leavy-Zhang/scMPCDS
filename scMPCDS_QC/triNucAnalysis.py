@@ -13,8 +13,10 @@ for i in os.listdir():
     os.system('bgzip %s' % i)
     os.system('tabix -p vcf %s.gz' % i)
 
-os.system('bcftools merge *.vcf.gz -o merged.vcf.gz')
+os.system('bcftools merge *.vcf.gz -o major_result/merged.vcf.gz')
 
 genInstall.install('GRCh38', rsync=False, bash=True)
-matGen.SigProfilerMatrixGeneratorFunc("mitoAnalysis", "GRCh38", "/directory/of/merged_vcf_file", chrom_based=True, plot=True, tsb_stat=True )
+
+os.chdir('major_result')
+matGen.SigProfilerMatrixGeneratorFunc("mitoAnalysis", "GRCh38", "./", chrom_based=True, plot=True, tsb_stat=True )
 
