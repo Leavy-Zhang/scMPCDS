@@ -5,7 +5,7 @@ This project was used for analyzing scMPCDS sequecing data
 
 If you use the code in this repository, please cite:
 
-Zhengyang Zhang#, Liwei Zhang#,\*, Peng An#, Xu Zhang, Yi Xia, Yunlu Kang, Xiaoxia Chen, Rongrong Hua, Yinhua Zhu, Yanling Hao, Yuan Huang*,Yongting Luo*, Junjie Luo*, Guisheng Wang*. Single-cell profiling of mitochondrial phenotyping-coupled mtDNA genotyping. Proc. Natl. Acad. Sci. U.S.A. (in press)
+Zhengyang Zhang, Liwei Zhang, Peng An, Xu Zhang, Yi Xia, Yunlu Kang, Xiaoxia Chen, Rongrong Hua, Yinhua Zhu, Yanling Hao, Yuan Huang,Yongting Luo, Junjie Luo, Guisheng Wang. Single-cell profiling of mitochondrial phenotyping-coupled mtDNA genotyping. Proc. Natl. Acad. Sci. U.S.A. (in press)
 
 ## Raw Data
 
@@ -14,7 +14,7 @@ The whole sequencing data is available  at https://ngdc.cncb.ac.cn/ with accessi
 ## Set up
 *Requires anaconda installation
 
-	1) Clone repository
+	1) coda create -n env 
 	2) Set up python environment: `conda env create -f environment.yml`
 	3) Activate environment: `conda activate oriseg`
 
