@@ -2930,3 +2930,76 @@ pheatmap(corDat,display_numbers =  pvDat,
                cellheight = 35, border_color = "white")
 
 dev.off()
+
+
+hGenes <- c("MT-ND1",
+            "MT-ND2",
+            "MT-CO1",
+            "MT-CO2",
+            "MT-ATP8",
+            "MT-ATP6",
+            "MT-CO3",
+            "MT-ND3",
+            "MT-ND4L",
+            "MT-ND4",
+            "MT-ND5",
+            "MT-CYB",
+            "MT-RNR1",
+            "MT-RNR2",
+            "MT-TF",
+            "MT-TV",
+            "MT-TL1",
+            "MT-TI",
+            "MT-TM",
+            "MT-TW",
+            "MT-TD",
+            "MT-TK",
+            "MT-TG",
+            "MT-TR",
+            "MT-TH",
+            "MT-TS1",
+            "MT-TL2",
+            "MT-TT")
+lGenes <- c("MT-ND6",
+            "MT-TQ",
+            "MT-TA",
+            "MT-TN",
+            "MT-TC",
+            "MT-TY",
+            "MT-TS2",
+            "MT-TE",
+            "MT-TP")
+
+
+bins <- matrix(c(1,5,5,10,10,50,50,100),ncol = 4)
+CellMutNum <- t293Dat %>% group_by(Cell,Mut) %>% summarise(n=n())
+lDat <- lapply(seq_len(dim(bins)[2]), function(m){
+  tmpDat <- subset(t293Dat, subset = (FREQ >= bins[1,m]) & (FREQ < bins[2,m]) & (Gene_Name %in% lGenes))
+  tmpDatNum <- tmpDat %>% group_by(Cell,Mut) %>% summarise(n=n())
+  Num <- lapply(seq_len(dim(tmpDatNum)[1]), function(j){return(subset(CellMutNum, (Cell == tmpDatNum$Cell[j]) & (Mut == tmpDatNum$Mut[j]))$n)}) %>% unlist
+  tmpDatNum$N <- Num
+  tmpDatNum$Group <- paste0(bins[1,m],'-',bins[2,m])
+  return(tmpDatNum)
+}) %>% Reduce('rbind',.)
+  
+hDat <- lapply(seq_len(dim(bins)[2]), function(m){
+tmpDat <- subset(t293Dat, subset = (FREQ >= bins[1,m]) & (FREQ < bins[2,m]) & (Gene_Name %in% hGenes))
+tmpDatNum <- tmpDat %>% group_by(Cell,Mut) %>% summarise(n=n())
+Num <- lapply(seq_len(dim(tmpDatNum)[1]), function(j){return(subset(CellMutNum, (Cell == tmpDatNum$Cell[j]) & (Mut == tmpDatNum$Mut[j]))$n)}) %>% unlist
+tmpDatNum$N <- Num
+tmpDatNum$Group <- paste0(bins[1,m],'-',bins[2,m])
+return(tmpDatNum)
+}) %>% Reduce('rbind',.)
+
+p2 <- ggplot(lDat,aes(x=Mut,y=n,colour = Group)) + geom_boxplot() + ylim(0,50)+ theme_classic()
+p2 <- ggplot(hDat,aes(x=Mut,y=n,colour = Group)) + geom_boxplot() + ylim(0,50)+ theme_classic()
+gridExtra::grid.arrange(p1,p2)
+
+statDat <-  lapply(seq_len(dim(bins)[2]), function(m){
+  tmpDat <- subset(t293Dat, subset = (FREQ >= bins[1,m]) & (FREQ < bins[2,m]))
+  tmpDatNum <- tmpDat %>% group_by(Cell) %>% summarise(n=n())
+  tmpDatNum$Group <- paste0(bins[1,m],'-',bins[2,m])
+  return(tmpDatNum)
+}) %>% Reduce('rbind',.)
+
+
