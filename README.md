@@ -64,7 +64,20 @@ The whole sequencing data is available  at https://ngdc.cncb.ac.cn/ with accessi
    
 	python scMPCDS/scMPCDS_QC/pcr_error_simulation.py
 
+
 *8) To perform the basic 10X scATAC-seq analysis, please run:
 
    ./scMPCDS/10X/fastq2mgatk.sh
 	
+## Directories
+
+**seq2vcf**: contains shell/R scripts how to generate the basic SNP table using scMPCDS raw sequencing data
+
+**seq2vcf**: contains shell/R scripts how to generate the basic SNP table using scMPCDS raw sequencing data
+
+
+**10X/**: contains shell/R scripts how to perform mitochondria SNP allel analysis using 10X ATAC-seq data
+
+**Figures/**: contains all figures generated through Bioinformatic Machine learning analysis
+
+
