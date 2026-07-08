@@ -6,4 +6,4 @@
 
 samtools view -@ 30 -b -h 10X-mito-atac/outs/possorted_bam.bam chrM > 10X-mito-atac/outs/chrM.possorted_bam.bam
 samtools index 10X-mito-atac/outs/chrM.possorted_bam.bam
-mgatk tenx -i 10X-mito-atac/outs/chrM.possorted_bam.bam -g hg38 -o mgatk -c 40 -bt CB -b 10X-mito-atac/outs/filtered_peak_bc_matrix/barcodes.tsv
+mgatk tenx -i 10X-mito-atac/outs/chrM.possorted_bam.bam -g hg38 -o major_results/mgatk -c 40 -bt CB -b 10X-mito-atac/outs/filtered_peak_bc_matrix/barcodes.tsv
