@@ -2,7 +2,7 @@
 conda activate Bioinfo
 
 threads=6
-ref_base="/pub/ref_base"
+ref_base="ref_base"
 fasta_file="Homo_Ref_Numts.fa"
 bwa index -a bwtsw "$ref_base/$fasta_file"
 
