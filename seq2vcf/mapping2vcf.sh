@@ -36,7 +36,7 @@ done
 
 cd ../vcf_file
 for i in `ls | grep vcf$`;do
-    java -Xmx100G -jar ~/tools/snpEff/snpEff.jar -c ~/tools/snpEff/snpEff.config -v -o gatk GRCh38.99 "$" > "${i%vcf}anno.vcf.gz";tabix -p vcf "$i"/"${j%vcf}anno.vcf"
+    java -Xmx100G -jar ~/tools/snpEff/snpEff.jar -c ~/tools/snpEff/snpEff.config -noupstream -nodownstream -v -o gatk GRCh38.99 "$" > "${i%vcf}anno.vcf.gz";tabix -p vcf "$i"/"${j%vcf}anno.vcf"
 done
 
 
