@@ -4,7 +4,8 @@ This project was used for analyzing scMPCDS sequecing data
 ## Citation
 
 If you use the code in this repository, please cite:
-Zhengyang Zhang1,#, Liwei Zhang1,#,*, Peng An1,#, Xu Zhang1, Yi Xia1, Yunlu Kang2, Xiaoxia Chen3, Rongrong Hua3, Yinhua Zhu1, Yanling Hao1, Yuan Huang4,*,Yongting Luo1,*, Junjie Luo1,*, Guisheng Wang3. Single-cell profiling of mitochondrial phenotyping-coupled mtDNA genotyping. Proc. Natl. Acad. Sci. U.S.A. (in press)
+
+Zhengyang Zhang#, Liwei Zhang#,*, Peng An#, Xu Zhang, Yi Xia, Yunlu Kang, Xiaoxia Chen, Rongrong Hua, Yinhua Zhu, Yanling Hao, Yuan Huang*,Yongting Luo*, Junjie Luo*, Guisheng Wang. Single-cell profiling of mitochondrial phenotyping-coupled mtDNA genotyping. Proc. Natl. Acad. Sci. U.S.A. (in press)
 
 ## Raw Data
 
