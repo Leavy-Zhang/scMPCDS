@@ -66,7 +66,7 @@ The whole sequencing data is available  at https://ngdc.cncb.ac.cn/ with accessi
 
 *8) To perform the basic 10X scATAC-seq analysis, please run:
 
-   ./scMPCDS/10X/fastq2mgatk.sh
+    ./scMPCDS/10X/fastq2mgatk.sh
 	
 ## Directories
 
