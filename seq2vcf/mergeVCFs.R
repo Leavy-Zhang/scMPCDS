@@ -8,8 +8,6 @@ library(ggbeeswarm)
 library(cowplot)
 library(corrplot)
 
-setwd('/path/to/project')
-
 
 thisDir = "vcf_dir"
 dirlist = grep('anno.vcf',dir(thisDir),value=TRUE)
@@ -97,4 +95,5 @@ pheno2 <- lapply(seq_along(dat$Cell), function(m){
     }
 }) %>% Reduce('rbind',.)
 dat <- cbind(dat, pheno2)
-write.csv(dat, "path/to/vcf_table.csv")
+dir.create('major_result')
+write.csv(dat, "major_result/vcf_table.csv")
